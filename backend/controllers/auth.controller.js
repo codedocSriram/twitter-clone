@@ -67,7 +67,10 @@ export const login = async (req, res) => {
             return res.status(404).json({ error: "Invalid credentials!" });
         }
 
-        const isPasswordTrue = await bcrypt.compare(password, user.password);
+        const isPasswordTrue = await bcrypt.compare(
+            password,
+            user?.password || "",
+        );
 
         if (!isPasswordTrue) {
             return res.status(404).json({ error: "Invalid credentials!" });
@@ -96,6 +99,15 @@ export const logout = async (req, res) => {
         res.status(200).json({ message: "Logged out successfully!" });
     } catch (error) {
         console.log("Error in logout controller:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+export const getMe = async (req, res) => {
+    try {
+        res.status(200).json(res.user);
+    } catch (error) {
+        console.log("Error in getMe controller:", error.message);
         res.status(500).json({ error: "Internal Server Error" });
     }
 };
