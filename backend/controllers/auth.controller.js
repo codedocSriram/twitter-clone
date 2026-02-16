@@ -105,7 +105,7 @@ export const logout = async (req, res) => {
 
 export const getMe = async (req, res) => {
     try {
-        res.status(200).json(res.user);
+        res.status(200).json(req.user);
     } catch (error) {
         console.log("Error in getMe controller:", error.message);
         res.status(500).json({ error: "Internal Server Error" });
