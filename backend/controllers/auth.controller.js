@@ -17,7 +17,9 @@ export const signup = async (req, res) => {
 
         const existingEmail = await User.findOne({ email });
         if (existingEmail) {
-            return res.status(400).json({ error: "Acount alreadt exists." });
+            return res
+                .status(400)
+                .json({ error: "Acount with this email already exists." });
         }
 
         if (password.length < 8) {
